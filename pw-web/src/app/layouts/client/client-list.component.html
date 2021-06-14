@@ -1,0 +1,47 @@
+<div>
+  <h2 id="client-page-heading">
+    <span>Clients</span>
+    <button id="new-client-btn" class="btn btn-primary float-right" [routerLink]="['/client/new']">
+      <fa-icon [icon]="'plus'"></fa-icon>
+      <span>
+        New Client
+      </span>
+    </button>
+  </h2>
+  <br />
+  <div class="table-responsive" *ngIf="clients">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><span>ID</span></th>
+          <th><span>First Name</span></th>
+          <th><span>Last Name</span></th>
+          <th><span>Date Of Birth</span></th>
+          <th><span>NIF</span></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of clients | orderBy: ['id']; trackBy: trackId">
+          <td>{{ client.id }}</td>
+          <td>{{ client.firstName }}</td>
+          <td>{{ client.lastName }}</td>
+          <td>{{ client.dateOfBirth | date: 'medium' }}</td>
+          <td>{{ client.nif }}</td>
+          <td class="text-right">
+            <div class="btn-group flex-btn-group-container">
+              <button type="submit" [routerLink]="['/client', client.id, 'edit']" class="btn btn-primary btn-sm">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                <span class="d-none d-md-inline"> Edit</span>
+              </button>
+              <button type="button" (click)="deleteClient(client)" class="btn btn-danger btn-sm">
+                <fa-icon [icon]="'times'"></fa-icon>
+                <span class="d-none d-md-inline"> Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

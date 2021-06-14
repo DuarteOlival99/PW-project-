@@ -1,0 +1,65 @@
+# Spring Boot configuration
+spring:
+  profiles:
+    active: development
+    
+  application:
+    name: PW-Server
+        
+  # Database
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://ec2-54-228-243-238.eu-west-1.compute.amazonaws.com:5432/df32dkn1i4m4gm
+    username: zvpwvhdtfcgvvy
+    password: e08c929c053356cab363b1de7bfb45b1378661c09b2aed74492af1b560f25473
+    hikari:
+      poolName: Hikari
+      
+  # JPA properties
+  jpa:
+    show-sql: true
+    database: POSTGRESQL
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+    hibernate:
+      ddl-auto: validate
+ 
+ # Security properties
+  security:
+    authentication:
+      jwt:
+        # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
+        base64-secret: YmQ1MzI0ZDAzZGYxZGM3ZjkyNDBlNjMwY2VmYzk0MDY2M2Q3MTFlNjNjZDI3MzMyMzk0OWM2MGJhOGM3NTI0OGQwZjAyNzYxYzU1NTFlMDA1ODk5ZjM5NmQ2Y2Q1NDVlODczYWJkMmQ2NDAzODcyMTkxMDA0NmYxYWZkYzVmZmU=
+        # Token is valid 24 hours
+        token-validity-in-seconds: 86400      
+    
+# Logger configuration
+logging:
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+  level:
+    org.springframework: INFO
+    org.hibernate: DEBUG
+           
+# Server configuration
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 30
+      
+cors:
+  allowed-origins: "*"
+  allowed-methods: "*"
+  allowed-headers: "*"
+  exposed-headers: "Authorization,Link,X-Total-Count"
+  allow-credentials: true
+  max-age: 1800
+  
+async:
+  core-pool-size: 2
+  max-pool-size: 50
+  queue-capacity: 10000
+      

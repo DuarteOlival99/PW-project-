@@ -1,0 +1,168 @@
+<h2>Client</h2>
+<form name="editForm" role="form" novalidate #editForm="ngForm">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-control-label" for="clientNameInput">Client First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          name="clientNameInput"
+          id="clientNameInput"
+          [(ngModel)]="client.firstName"
+          placeholder="First Name"
+          required
+        />
+        <div [hidden]="!(editForm.controls.clientNameInput?.dirty && editForm.controls.clientNameInput?.invalid)">
+          <small class="form-text text-danger" [hidden]="!editForm.controls.clientNameInput?.errors?.required">
+            This field is required.
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-control-label" for="clientLastName">Client Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          name="clientLastName"
+          id="clientLastName"
+          [(ngModel)]="client.lastName"
+          placeholder="Last Name"
+          required
+        />
+        <div [hidden]="!(editForm.controls.clientLastName?.dirty && editForm.controls.clientLastName?.invalid)">
+          <small class="form-text text-danger" [hidden]="!editForm.controls.clientLastName?.errors?.required">
+            This field is required.
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-control-label" for="clientDescInput">Client Desc</label>
+        <input
+          type="text"
+          class="form-control"
+          name="clientDescInput"
+          id="clientDescInput"
+          [(ngModel)]="client.desription"
+          placeholder="Client Description"
+          required
+        />
+        <div [hidden]="!(editForm.controls.clientDescInput?.dirty && editForm.controls.clientDescInput?.invalid)">
+          <small class="form-text text-danger" [hidden]="!editForm.controls.clientDescInput?.errors?.required">
+            This field is required.
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-control-label" for="clientBrandInput">Client Brand</label>
+        <input
+          type="text"
+          class="form-control"
+          name="clientBrandInput"
+          id="clientBrandInput"
+          [(ngModel)]="client.brand"
+          placeholder="Client Brand"
+          required
+        />
+        <div [hidden]="!(editForm.controls.clientBrandInput?.dirty && editForm.controls.clientBrandInput?.invalid)">
+          <small class="form-text text-danger" [hidden]="!editForm.controls.clientBrandInput?.errors?.required">
+            This field is required.
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-control-label" for="clientExpireDateInput">Birth of Date</label>
+        <input
+          type="date"
+          class="form-control"
+          name="clientExpireDateInput"
+          id="clientExpireDateInput"
+          [(ngModel)]="client.dateOfBirth"
+          placeholder="Birth date"
+          required
+        />
+        <div [hidden]="!(editForm.controls.clientExpireDateInput?.dirty && editForm.controls.clientExpireDateInput?.invalid)">
+          <small class="form-text text-danger" [hidden]="!editForm.controls.clientExpireDateInput?.errors?.required">
+            This field is required.
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <h4 id="client-precaution-page-heading">
+    <span>Client Precautions</span>
+    <button id="new-client-btn" class="btn btn-primary float-right" (click)="addClientPrecaution()">
+      <fa-icon [icon]="'plus'"></fa-icon>
+      <span>
+        New Client Precaution
+      </span>
+    </button>
+  </h4>
+  <br />
+  <div class="table-responsive" *ngIf="client.clientPrecautions">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><span>ID</span></th>
+          <th><span>Description</span></th>
+          <th><span>Precaution Type</span></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let clientPrecaution of client.clientPrecautions; let i = index; trackBy: trackId">
+          <td>{{ clientPrecaution.id }}</td>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              name="clientPrecautionsDescription-{{ i }}"
+              id="clientPrecautionsDescription-{{ i }}"
+              [(ngModel)]="clientPrecaution.description"
+              placeholder="Description"
+              required
+            />
+          </td>
+          <td>
+            <select
+              class="form-control"
+              name="clientPrecautionsPrecautionType-{{ i }}"
+              [(ngModel)]="clientPrecaution.precautionType"
+              id="clientPrecautionsPrecautionType-{{ i }}"
+              required
+            >
+              <option value="HAZARD">Hazard</option>
+              <option value="DANGER">Danger</option>
+              <option value="TOXIC">Toxic</option>
+            </select>
+          </td>
+          <td class="text-right">
+            <div class="btn-group flex-btn-group-container">
+              <button type="button" class="btn btn-danger btn-sm" (click)="deleteClientPrecaution(clientPrecaution)">
+                <fa-icon [icon]="'times'"></fa-icon>
+                <span class="d-none d-md-inline"> Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <button type="button" class="btn btn-primary" [disabled]="editForm.form.invalid" (click)="saveClient()">
+    <fa-icon [icon]="'save'"></fa-icon>
+    <span> Save</span>
+  </button>
+</form>

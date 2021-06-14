@@ -1,0 +1,114 @@
+<h2>Product</h2>
+<form name="editForm" role="form" novalidate #editForm="ngForm">
+  <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="form-control-label" for="productNameInput">Product Name</label>
+            <input type="text" class="form-control" name="productNameInput" id="productNameInput" [(ngModel)]="product.productName" placeholder="Product Name" required/>
+            <div [hidden]="!(editForm.controls.productNameInput?.dirty && editForm.controls.productNameInput?.invalid)">
+              <small class="form-text text-danger" [hidden]="!editForm.controls.productNameInput?.errors?.required">
+                  This field is required.
+              </small>
+            </div>
+        </div>
+    </div>
+     <div class="col-md-6">
+        <div class="form-group">
+            <label class="form-control-label" for="productCodeInput">Product Code</label>
+            <input type="text" class="form-control" name="productCodeInput" id="productCodeInput" [(ngModel)]="product.productCode" placeholder="Product Code" required/>
+            <div [hidden]="!(editForm.controls.productCodeInput?.dirty && editForm.controls.productCodeInput?.invalid)">
+              <small class="form-text text-danger" [hidden]="!editForm.controls.productCodeInput?.errors?.required">
+                  This field is required.
+              </small>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="form-control-label" for="productDescInput">Product Desc</label>
+            <input type="text" class="form-control" name="productDescInput" id="productDescInput" [(ngModel)]="product.description" placeholder="Product Description" required/>
+            <div [hidden]="!(editForm.controls.productDescInput?.dirty && editForm.controls.productDescInput?.invalid)">
+              <small class="form-text text-danger" [hidden]="!editForm.controls.productDescInput?.errors?.required">
+                  This field is required.
+              </small>
+            </div>
+        </div>
+    </div>
+     <div class="col-md-6">
+        <div class="form-group">
+            <label class="form-control-label" for="productBrandInput">Product Brand</label>
+            <input type="text" class="form-control" name="productBrandInput" id="productBrandInput" [(ngModel)]="product.brand" placeholder="Product Brand" required/>
+            <div [hidden]="!(editForm.controls.productBrandInput?.dirty && editForm.controls.productBrandInput?.invalid)">
+              <small class="form-text text-danger" [hidden]="!editForm.controls.productBrandInput?.errors?.required">
+                  This field is required.
+              </small>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+          <label class="form-control-label" for="productExpireDateInput">Expire Date</label>
+          <input type="date" class="form-control" name="productExpireDateInput" id="productExpireDateInput" [(ngModel)]="product.expireDate" placeholder="Expire Date" required/>
+          <div [hidden]="!(editForm.controls.productExpireDateInput?.dirty && editForm.controls.productExpireDateInput?.invalid)">
+            <small class="form-text text-danger" [hidden]="!editForm.controls.productExpireDateInput?.errors?.required">
+                This field is required.
+            </small>
+          </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <h4 id="product-precaution-page-heading">
+    <span>Product Precautions</span>
+    <button id="new-product-btn" class="btn btn-primary float-right" (click)="addProductPrecaution()">
+      <fa-icon [icon]="'plus'"></fa-icon>
+      <span>
+        New Product Precaution
+      </span>
+    </button>
+  </h4>
+  <br/>
+  <div class="table-responsive" *ngIf="product.productPrecautions">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+      <th><span>ID</span></th>
+      <th><span>Description</span></th>
+      <th><span>Precaution Type</span></th>
+      <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let productPrecaution of product.productPrecautions; let i = index; trackBy: trackId">
+          <td>{{productPrecaution.id}}</td>
+          <td>
+            <input type="text" class="form-control" name="productPrecautionsDescription-{{i}}" id="productPrecautionsDescription-{{i}}" [(ngModel)]="productPrecaution.description" placeholder="Description" required/>
+          </td>
+          <td>
+            <select class="form-control" name="productPrecautionsPrecautionType-{{i}}" [(ngModel)]="productPrecaution.precautionType" id="productPrecautionsPrecautionType-{{i}}" required>
+              <option value="HAZARD">Hazard</option>
+              <option value="DANGER">Danger</option>
+              <option value="TOXIC">Toxic</option>
+            </select>
+          </td>
+          <td class="text-right">
+            <div class="btn-group flex-btn-group-container">
+              <button type="button" class="btn btn-danger btn-sm" (click)="deleteProductPrecaution(productPrecaution)">
+                <fa-icon [icon]="'times'"></fa-icon>
+                <span class="d-none d-md-inline"> Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <button type="button" class="btn btn-primary" [disabled]="editForm.form.invalid" (click)="saveProduct()">
+    <fa-icon [icon]="'save'"></fa-icon>
+    <span> Save</span>
+  </button>
+</form>
