@@ -26,7 +26,7 @@
     "ngx-toastr": "^10.0.2",
     "bootstrap": "4.3.1",
     "core-js": "^2.5.4",
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "moment": "2.24.0",
     "popper": "^1.0.1",
     "rxjs": "~6.3.3",
